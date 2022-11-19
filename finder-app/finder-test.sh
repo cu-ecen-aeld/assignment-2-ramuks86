@@ -41,16 +41,21 @@ else
 	exit 1
 fi
 
-#echo "Removing the old writer utility and compiling as a native application"
-#make clean
-#make
+echo "Removing the old writer utility and compiling as a native application"
+make clean
+make
+
+#echo "native writer compiled"
 
 for i in $( seq 1 $NUMFILES)
 do
-	./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+#	echo "writer calling with parameters for $i" 
+	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
 OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
+
+#echo ${OUTPUTSTRING}
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
